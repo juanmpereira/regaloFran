@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Una Pregunta Muy Especial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape shape-1" aria-hidden="true"></div>
+    <div class="bg-shape shape-2" aria-hidden="true"></div>
+
+    <main class="app">
+      <section class="card" id="quiz-card">
+        <p class="step" id="step-indicator">Pregunta 1 de 5</p>
+        <h1 class="title" id="question-title"></h1>
+        <p class="description" id="question-subtitle"></p>
+        <p class="answer-feedback" id="answer-feedback"></p>
+
+        <div class="actions" id="question-actions"></div>
+
+        <section class="moment-card hidden" id="moment-card">
+          <p class="step">Respuesta correcta</p>
+          <h3 class="moment-title" id="moment-title"></h3>
+          <figure class="photo-frame">
+            <img id="moment-photo" src="assets/momento-1.jpg" alt="Recuerdo del momento" />
+            <figcaption id="moment-caption"></figcaption>
+          </figure>
+          <button class="btn btn-primary" id="next-btn">Siguiente</button>
+        </section>
+      </section>
+
+      <section class="card hidden" id="special-date-card">
+        <p class="step">Desbloqueaste la fecha especial</p>
+        <p class="big-date">18/08/2024</p>
+        <p class="description">Un dia que quiero recordar siempre con vos.</p>
+
+        <div class="dual-photos">
+          <figure class="photo-frame small-photo-frame">
+            <img src="assets/fecha-1.jpg" alt="Foto especial 1" id="date-photo-1" />
+          </figure>
+          <figure class="photo-frame small-photo-frame">
+            <img src="assets/fecha-2.jpg" alt="Foto especial 2" id="date-photo-2" />
+          </figure>
+        </div>
+
+        <button class="btn btn-primary" id="continue-to-video">Ver video</button>
+      </section>
+
+      <section class="card hidden" id="video-card">
+        <p class="step">Sorpresa final</p>
+        <h2 class="title">Nuestro video</h2>
+        <p class="description">
+          Este es un template. Cambia la URL en <strong>script.js</strong> para usar tu video.
+        </p>
+
+        <div class="video-wrapper">
+          <iframe
+            id="memory-video"
+            title="Video especial"
+            src="https://www.youtube-nocookie.com/embed/JGwWNGJdvx8"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
