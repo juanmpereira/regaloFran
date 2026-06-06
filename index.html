@@ -36,6 +36,34 @@
         </section>
       </section>
 
+      <section class="card hidden" id="ending-card">
+        <p class="step">Final</p>
+        <h2 class="title">Me encanta cuando sonreis asi</h2>
+        <figure class="photo-frame">
+          <img id="ending-photo" src="assets/nostotros.jpeg" alt="Nosotros sonriendo" />
+        </figure>
+        <button class="btn btn-primary" id="go-to-final-question">Continuar</button>
+      </section>
+
+      <section class="card hidden" id="final-question-card">
+        <p class="step">Esta es la pregunta final, respondela bien para desbloquear la recompensa</p>
+        <h2 class="title">En que centro de la costa nos sacamos esta foto?</h2>
+        <figure class="photo-frame">
+          <img id="final-question-photo" src="assets/preguntaFinal.jpeg" alt="Foto de la pregunta final" />
+        </figure>
+
+        <div class="final-question-actions">
+          <input
+            type="text"
+            id="final-answer-input"
+            placeholder="Escribe tu respuesta"
+            autocomplete="off"
+          />
+          <button class="btn btn-primary" id="check-final-answer">Responder</button>
+        </div>
+        <p class="answer-feedback" id="final-answer-feedback"></p>
+      </section>
+
       <section class="card hidden" id="special-date-card">
         <p class="step">Desbloqueaste la fecha especial</p>
         <p class="big-date">18/08/2024</p>

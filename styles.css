@@ -362,6 +362,23 @@ input[type="url"] {
   font: inherit;
 }
 
+.final-question-actions {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#final-answer-input {
+  flex: 1 1 260px;
+  min-width: 220px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  color: var(--text);
+}
+
 #generate-qr {
   margin-top: 12px;
 }
