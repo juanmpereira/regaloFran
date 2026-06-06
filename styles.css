@@ -308,6 +308,27 @@ body[data-stage="video"] {
   border: 1px solid var(--border);
   background: #000;
   aspect-ratio: 16 / 9;
+  max-height: 82vh;
+}
+
+#video-card {
+  width: min(1320px, 98vw);
+  justify-self: center;
+}
+
+@media (max-width: 900px) {
+  #video-card {
+    width: min(100vw, 100%);
+    border-radius: 0;
+    padding: 14px;
+  }
+
+  #video-card .video-wrapper {
+    width: 100%;
+    border-radius: 14px;
+    aspect-ratio: 9 / 16;
+    max-height: 84vh;
+  }
 }
 
 .video-wrapper iframe {
@@ -570,6 +591,19 @@ input[type="url"] {
   .card {
     padding: 18px;
     border-radius: 18px;
+  }
+
+  #video-card {
+    width: 100vw;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  #video-card .video-wrapper {
+    margin-top: 10px;
+    border-radius: 12px;
+    aspect-ratio: 9 / 16;
+    max-height: 86vh;
   }
 
   #moment-card .photo-frame,
