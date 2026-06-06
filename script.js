@@ -41,7 +41,7 @@ const questions = [
     options: ["Sabado", "Martes", "Jueves", "Viernes"],
     correct: "Viernes",
     photo: "assets/momentos-5.jpg",
-    momentTitle: "Nuestro dia especial",
+    momentTitle: "Asi me siento los viernes cuando me corto el pelo para verte a vos",
     momentCaption: "Siempre me esfuerzo por verte feliz.",
   },
 ];
