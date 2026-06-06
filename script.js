@@ -52,7 +52,7 @@ const DATE_PHOTO_1_SRC = "assets/fecha-1.jpg";
 const DATE_PHOTO_2_SRC = "assets/fecha-2.jpg";
 const DATE_PHOTO_FALLBACK_SRC = "assets/nosotros.jpg";
 const MEMORY_VIDEO_SRC = "https://www.youtube-nocookie.com/embed/JGwWNGJdvx8";
-const ENDING_PHOTO_SRC = "assets/nostotros.jpeg";
+const ENDING_PHOTO_SRC = "assets/nosotros.jpeg";
 const ENDING_PHOTO_FALLBACK_SRC = "assets/nosotros.jpeg";
 const FINAL_QUESTION_PHOTO_SRC = "assets/preguntaFinal.jpeg";
 const FINAL_QUESTION_PHOTO_FALLBACK_SRC = "assets/nosotros.jpeg";
@@ -178,16 +178,6 @@ function evaluateAnswer(selectedOption) {
     return;
   }
 
-  if (currentQuestion === questions.length - 1) {
-    quizCard.classList.add("hidden");
-    if (endingCard) {
-      endingCard.classList.remove("hidden");
-    } else {
-      specialDateCard.classList.remove("hidden");
-    }
-    return;
-  }
-
   answerFeedback.textContent = "Bien! Acertaste.";
   answerFeedback.className = "answer-feedback success";
   questionActions.innerHTML = "";
@@ -198,6 +188,16 @@ function evaluateAnswer(selectedOption) {
 }
 
 function nextQuestion() {
+  if (currentQuestion === questions.length - 1) {
+    quizCard.classList.add("hidden");
+    if (endingCard) {
+      endingCard.classList.remove("hidden");
+    } else {
+      specialDateCard.classList.remove("hidden");
+    }
+    return;
+  }
+
   currentQuestion += 1;
   renderQuestion();
 }
