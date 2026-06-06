@@ -20,7 +20,33 @@ body {
   font-family: "Nunito", sans-serif;
   color: var(--text);
   background: linear-gradient(140deg, var(--bg-start), var(--bg-end));
+  background-size: 180% 180%;
+  transition: background 900ms ease, background-position 900ms ease;
   overflow-x: hidden;
+}
+
+body[data-stage="quiz"] {
+  background: linear-gradient(140deg, #fff8f0 0%, #ffe7cf 45%, #ffd9c3 100%);
+}
+
+body[data-stage="moment"] {
+  background: linear-gradient(150deg, #fff3e6 0%, #ffd8ba 50%, #ffc9b4 100%);
+  background-position: 100% 0;
+}
+
+body[data-stage="ending"] {
+  background: linear-gradient(155deg, #ffe9dc 0%, #ffd0c8 48%, #ffc2be 100%);
+  background-position: 0 100%;
+}
+
+body[data-stage="final-question"] {
+  background: linear-gradient(155deg, #fff2e3 0%, #ffd8bb 55%, #ffc59f 100%);
+  background-position: 100% 100%;
+}
+
+body[data-stage="video"] {
+  background: linear-gradient(160deg, #ffeede 0%, #ffd7c3 52%, #ffbca3 100%);
+  background-position: 0 0;
 }
 
 .bg-shape {
@@ -136,6 +162,12 @@ body {
   box-shadow: 0 10px 18px rgba(227, 107, 95, 0.3);
 }
 
+#next-btn,
+#go-to-final-question,
+#check-final-answer {
+  animation: cta-glow 2.2s ease-in-out infinite;
+}
+
 .btn-ghost {
   background: #fff;
   color: var(--text);
@@ -155,6 +187,17 @@ body {
   padding: 10px;
   border: 1px solid var(--border);
   width: min(520px, 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 14px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.08));
 }
 
 .photo-frame img {
@@ -188,6 +231,45 @@ body {
   margin-top: 18px;
   padding-top: 10px;
   border-top: 1px dashed var(--border);
+}
+
+#moment-card .photo-frame,
+#ending-card .photo-frame,
+#final-question-card .photo-frame {
+  margin-top: 14px;
+  width: 100%;
+  max-width: none;
+  padding: 12px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #fff 0%, #fff4ea 100%);
+  box-shadow: 0 16px 36px rgba(102, 50, 38, 0.2);
+}
+
+#moment-card .photo-frame img,
+#ending-card .photo-frame img,
+#final-question-card .photo-frame img {
+  width: 100%;
+  height: min(72vh, 760px);
+  max-height: none;
+  border-radius: 18px;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+#moment-card .photo-frame img.photo-reveal,
+#ending-card .photo-frame img.photo-reveal,
+#final-question-card .photo-frame img.photo-reveal {
+  animation: photo-reveal 850ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.card.screen-enter {
+  animation: screen-enter 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+#ending-card .title,
+#final-question-card .title,
+#moment-card .moment-title {
+  text-wrap: balance;
 }
 
 .moment-title {
@@ -416,6 +498,32 @@ input[type="url"] {
   }
 }
 
+@keyframes screen-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes photo-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: saturate(0.8) contrast(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: saturate(1) contrast(1);
+  }
+}
+
 @keyframes float {
   0%,
   100% {
@@ -440,10 +548,42 @@ input[type="url"] {
   }
 }
 
+@keyframes cta-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 18px rgba(227, 107, 95, 0.28), 0 0 0 rgba(255, 180, 126, 0);
+  }
+  50% {
+    box-shadow: 0 12px 24px rgba(227, 107, 95, 0.34), 0 0 24px rgba(255, 180, 126, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #next-btn,
+  #go-to-final-question,
+  #check-final-answer {
+    animation: none;
+  }
+}
+
 @media (max-width: 650px) {
   .card {
     padding: 18px;
     border-radius: 18px;
+  }
+
+  #moment-card .photo-frame,
+  #ending-card .photo-frame,
+  #final-question-card .photo-frame {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  #moment-card .photo-frame img,
+  #ending-card .photo-frame img,
+  #final-question-card .photo-frame img {
+    height: min(58vh, 520px);
+    border-radius: 12px;
   }
 
   .btn {

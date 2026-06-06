@@ -85,6 +85,25 @@ const datePhoto2 = document.getElementById("date-photo-2");
 const continueToVideoBtn = document.getElementById("continue-to-video");
 const memoryVideo = document.getElementById("memory-video");
 
+function setStage(stage) {
+  document.body.dataset.stage = stage;
+}
+
+function triggerScreenEnter(card) {
+  if (!card) return;
+  card.classList.remove("screen-enter");
+  // Force reflow so the animation can restart each time.
+  void card.offsetWidth;
+  card.classList.add("screen-enter");
+}
+
+function triggerPhotoReveal(img) {
+  if (!img) return;
+  img.classList.remove("photo-reveal");
+  void img.offsetWidth;
+  img.classList.add("photo-reveal");
+}
+
 function setupDatePhotos() {
   const datePhotos = [
     { element: datePhoto1, src: DATE_PHOTO_1_SRC },
@@ -109,6 +128,7 @@ function setupMemoryVideo() {
 function setupEndingPhoto() {
   if (!endingPhoto) return;
   endingPhoto.src = ENDING_PHOTO_SRC;
+  endingPhoto.addEventListener("load", () => triggerPhotoReveal(endingPhoto));
   endingPhoto.addEventListener("error", () => {
     if (endingPhoto.src.includes(ENDING_PHOTO_FALLBACK_SRC)) return;
     endingPhoto.src = ENDING_PHOTO_FALLBACK_SRC;
@@ -118,6 +138,7 @@ function setupEndingPhoto() {
 function setupFinalQuestionPhoto() {
   if (!finalQuestionPhoto) return;
   finalQuestionPhoto.src = FINAL_QUESTION_PHOTO_SRC;
+  finalQuestionPhoto.addEventListener("load", () => triggerPhotoReveal(finalQuestionPhoto));
   finalQuestionPhoto.addEventListener("error", () => {
     if (finalQuestionPhoto.src.includes(FINAL_QUESTION_PHOTO_FALLBACK_SRC)) return;
     finalQuestionPhoto.src = FINAL_QUESTION_PHOTO_FALLBACK_SRC;
@@ -127,7 +148,11 @@ function setupFinalQuestionPhoto() {
 function showVideoCard() {
   if (finalQuestionCard) finalQuestionCard.classList.add("hidden");
   if (specialDateCard) specialDateCard.classList.add("hidden");
-  if (videoCard) videoCard.classList.remove("hidden");
+  if (videoCard) {
+    videoCard.classList.remove("hidden");
+    triggerScreenEnter(videoCard);
+    setStage("video");
+  }
 }
 
 function evaluateFinalAnswer() {
@@ -150,6 +175,8 @@ function evaluateFinalAnswer() {
 
 function renderQuestion() {
   const q = questions[currentQuestion];
+
+  setStage("quiz");
 
   stepIndicator.textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
   questionTitle.textContent = q.title;
@@ -185,6 +212,9 @@ function evaluateAnswer(selectedOption) {
   momentPhoto.src = q.photo;
   momentCaption.textContent = q.momentCaption;
   momentCard.classList.remove("hidden");
+  triggerScreenEnter(momentCard);
+  triggerPhotoReveal(momentPhoto);
+  setStage("moment");
 }
 
 function nextQuestion() {
@@ -192,8 +222,13 @@ function nextQuestion() {
     quizCard.classList.add("hidden");
     if (endingCard) {
       endingCard.classList.remove("hidden");
+      triggerScreenEnter(endingCard);
+      triggerPhotoReveal(endingPhoto);
+      setStage("ending");
     } else {
       specialDateCard.classList.remove("hidden");
+      triggerScreenEnter(specialDateCard);
+      setStage("video");
     }
     return;
   }
@@ -208,13 +243,20 @@ if (continueToVideoBtn) {
   continueToVideoBtn.addEventListener("click", () => {
     specialDateCard.classList.add("hidden");
     videoCard.classList.remove("hidden");
+    triggerScreenEnter(videoCard);
+    setStage("video");
   });
 }
 
 if (goToFinalQuestionBtn) {
   goToFinalQuestionBtn.addEventListener("click", () => {
     if (endingCard) endingCard.classList.add("hidden");
-    if (finalQuestionCard) finalQuestionCard.classList.remove("hidden");
+    if (finalQuestionCard) {
+      finalQuestionCard.classList.remove("hidden");
+      triggerScreenEnter(finalQuestionCard);
+      triggerPhotoReveal(finalQuestionPhoto);
+      setStage("final-question");
+    }
     if (finalAnswerInput) {
       finalAnswerInput.value = "";
       finalAnswerInput.focus();
@@ -243,4 +285,5 @@ setupDatePhotos();
 setupMemoryVideo();
 setupEndingPhoto();
 setupFinalQuestionPhoto();
+setStage("quiz");
 renderQuestion();
