@@ -51,7 +51,7 @@ const questions = [
     correct: "Acequia",
     photo: "assets/momentos-6.jpg",
     momentTitle: "Nuestra panaderia preferida",
-    momentCaption: "Y obvio, siempre elegimos Acequia.",
+    momentCaption: "Me encanta acompañarte a comprar medialunitas.",
   },
 ];
 
