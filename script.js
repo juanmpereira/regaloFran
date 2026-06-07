@@ -30,7 +30,7 @@ const questions = [
     title: "4. Sabes que siempre estoy listo para hacer la comida que mas te gusta ...",
     subtitle: "Elegi una opcion para seguir avanzando.",
     options: ["Pastas", "Pizza", "Milanesas","Asadito"],
-    correct: "Asado",
+    correct: "Asadito",
     photo: "assets/momentos-4.jpg",
     momentTitle: "Nuestra comida favorita",
     momentCaption: "Siempre disfruto prepararla para vos.",
