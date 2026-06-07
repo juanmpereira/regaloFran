@@ -39,6 +39,11 @@ body[data-stage="ending"] {
   background-position: 0 100%;
 }
 
+body[data-stage="thanks"] {
+  background: linear-gradient(155deg, #fff0e4 0%, #ffd6c8 48%, #ffc8b3 100%);
+  background-position: 50% 100%;
+}
+
 body[data-stage="final-question"] {
   background: linear-gradient(155deg, #fff2e3 0%, #ffd8bb 55%, #ffc59f 100%);
   background-position: 100% 100%;
@@ -234,6 +239,7 @@ body[data-stage="video"] {
 }
 
 #moment-card .photo-frame,
+#thanks-card .photo-frame,
 #ending-card .photo-frame,
 #final-question-card .photo-frame {
   margin-top: 14px;
@@ -246,6 +252,7 @@ body[data-stage="video"] {
 }
 
 #moment-card .photo-frame img,
+#thanks-card .photo-frame img,
 #ending-card .photo-frame img,
 #final-question-card .photo-frame img {
   width: 100%;
@@ -257,9 +264,15 @@ body[data-stage="video"] {
 }
 
 #moment-card .photo-frame img.photo-reveal,
+#thanks-card .photo-frame img.photo-reveal,
 #ending-card .photo-frame img.photo-reveal,
 #final-question-card .photo-frame img.photo-reveal {
   animation: photo-reveal 850ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+#thanks-card .title,
+#thanks-card .description {
+  text-wrap: balance;
 }
 
 .card.screen-enter {
@@ -335,6 +348,15 @@ body[data-stage="video"] {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: contain;
+  background: #000;
 }
 
 .proposal-feedback {
@@ -607,6 +629,7 @@ input[type="url"] {
   }
 
   #moment-card .photo-frame,
+  #thanks-card .photo-frame,
   #ending-card .photo-frame,
   #final-question-card .photo-frame {
     padding: 8px;
@@ -614,6 +637,7 @@ input[type="url"] {
   }
 
   #moment-card .photo-frame img,
+  #thanks-card .photo-frame img,
   #ending-card .photo-frame img,
   #final-question-card .photo-frame img {
     height: min(58vh, 520px);

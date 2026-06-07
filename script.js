@@ -29,20 +29,29 @@ const questions = [
   {
     title: "4. Sabes que siempre estoy listo para hacer la comida que mas te gusta ...",
     subtitle: "Elegi una opcion para seguir avanzando.",
-    options: ["Pastas", "Pizza", "Milanesas","Asado"],
+    options: ["Pastas", "Pizza", "Milanesas","Asadito"],
     correct: "Asado",
     photo: "assets/momentos-4.jpg",
     momentTitle: "Nuestra comida favorita",
     momentCaption: "Siempre disfruto prepararla para vos.",
   },
   {
-    title: "5. Que dias me corto el pelo para verte?",
+    title: "5. Que dia se cortan el pelo los infieles segun vos?  ",
     subtitle: "Elegi una opcion para seguir avanzando.",
     options: ["Sabado", "Martes", "Jueves", "Viernes"],
     correct: "Viernes",
     photo: "assets/momentos-5.jpg",
-    momentTitle: "Asi me siento los viernes cuando me corto el pelo para verte a vos",
+    momentTitle: "Pero yo me siento asi con el pelo corto esperando por vernos",
     momentCaption: "Siempre me esfuerzo por verte feliz.",
+  },
+  {
+    title: "6. Cual es nuestra panaderia preferida?",
+    subtitle: "Elegi una opcion para seguir avanzando.",
+    options: ["Acequia", "Pertuti", "Bakery", "Suevia"],
+    correct: "Acequia",
+    photo: "assets/momentos-6.jpg",
+    momentTitle: "Nuestra panaderia preferida",
+    momentCaption: "Y obvio, siempre elegimos Acequia.",
   },
 ];
 
@@ -51,7 +60,9 @@ let currentQuestion = 0;
 const DATE_PHOTO_1_SRC = "assets/fecha-1.jpg";
 const DATE_PHOTO_2_SRC = "assets/fecha-2.jpg";
 const DATE_PHOTO_FALLBACK_SRC = "assets/nosotros.jpg";
-const MEMORY_VIDEO_SRC = "https://www.youtube-nocookie.com/embed/JGwWNGJdvx8";
+const MEMORY_VIDEO_SRC = "assets/videoFran.mp4";
+const THANKS_PHOTO_SRC = "assets/gracias.jpg";
+const THANKS_PHOTO_FALLBACK_SRC = "assets/nosotros.jpeg";
 const ENDING_PHOTO_SRC = "assets/nosotros.jpeg";
 const ENDING_PHOTO_FALLBACK_SRC = "assets/nosotros.jpeg";
 const FINAL_QUESTION_PHOTO_SRC = "assets/preguntaFinal.jpeg";
@@ -70,6 +81,9 @@ const momentCaption = document.getElementById("moment-caption");
 const nextBtn = document.getElementById("next-btn");
 
 const quizCard = document.getElementById("quiz-card");
+const thanksCard = document.getElementById("thanks-card");
+const thanksPhoto = document.getElementById("thanks-photo");
+const continueAfterThanksBtn = document.getElementById("continue-after-thanks");
 const endingCard = document.getElementById("ending-card");
 const endingPhoto = document.getElementById("ending-photo");
 const goToFinalQuestionBtn = document.getElementById("go-to-final-question");
@@ -133,6 +147,30 @@ function setupEndingPhoto() {
     if (endingPhoto.src.includes(ENDING_PHOTO_FALLBACK_SRC)) return;
     endingPhoto.src = ENDING_PHOTO_FALLBACK_SRC;
   });
+}
+
+function setupThanksPhoto() {
+  if (!thanksPhoto) return;
+  thanksPhoto.src = THANKS_PHOTO_SRC;
+  thanksPhoto.addEventListener("load", () => triggerPhotoReveal(thanksPhoto));
+  thanksPhoto.addEventListener("error", () => {
+    if (thanksPhoto.src.includes(THANKS_PHOTO_FALLBACK_SRC)) return;
+    thanksPhoto.src = THANKS_PHOTO_FALLBACK_SRC;
+  });
+}
+
+function showPostQuizFlow() {
+  if (thanksCard) thanksCard.classList.add("hidden");
+  if (endingCard) {
+    endingCard.classList.remove("hidden");
+    triggerScreenEnter(endingCard);
+    triggerPhotoReveal(endingPhoto);
+    setStage("ending");
+  } else {
+    specialDateCard.classList.remove("hidden");
+    triggerScreenEnter(specialDateCard);
+    setStage("video");
+  }
 }
 
 function setupFinalQuestionPhoto() {
@@ -220,15 +258,13 @@ function evaluateAnswer(selectedOption) {
 function nextQuestion() {
   if (currentQuestion === questions.length - 1) {
     quizCard.classList.add("hidden");
-    if (endingCard) {
-      endingCard.classList.remove("hidden");
-      triggerScreenEnter(endingCard);
-      triggerPhotoReveal(endingPhoto);
-      setStage("ending");
+    if (thanksCard) {
+      thanksCard.classList.remove("hidden");
+      triggerScreenEnter(thanksCard);
+      triggerPhotoReveal(thanksPhoto);
+      setStage("thanks");
     } else {
-      specialDateCard.classList.remove("hidden");
-      triggerScreenEnter(specialDateCard);
-      setStage("video");
+      showPostQuizFlow();
     }
     return;
   }
@@ -238,6 +274,10 @@ function nextQuestion() {
 }
 
 nextBtn.addEventListener("click", nextQuestion);
+
+if (continueAfterThanksBtn) {
+  continueAfterThanksBtn.addEventListener("click", showPostQuizFlow);
+}
 
 if (continueToVideoBtn) {
   continueToVideoBtn.addEventListener("click", () => {
@@ -283,6 +323,7 @@ if (finalAnswerInput) {
 
 setupDatePhotos();
 setupMemoryVideo();
+setupThanksPhoto();
 setupEndingPhoto();
 setupFinalQuestionPhoto();
 setStage("quiz");

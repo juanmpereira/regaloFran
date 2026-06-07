@@ -18,7 +18,7 @@
 
     <main class="app">
       <section class="card" id="quiz-card">
-        <p class="step" id="step-indicator">Pregunta 1 de 5</p>
+        <p class="step" id="step-indicator">Pregunta 1 de 6</p>
         <h1 class="title" id="question-title"></h1>
         <p class="description" id="question-subtitle"></p>
         <p class="answer-feedback" id="answer-feedback"></p>
@@ -34,6 +34,16 @@
           </figure>
           <button class="btn btn-primary" id="next-btn">Siguiente</button>
         </section>
+      </section>
+
+      <section class="card hidden" id="thanks-card">
+        <p class="step">Sin quiz</p>
+        <h2 class="title">Gracias por estar siempre.</h2>
+        <p class="description">Esta que sea sin quiz.</p>
+        <figure class="photo-frame">
+          <img id="thanks-photo" src="assets/gracias.jpg" alt="Foto de agradecimiento" />
+        </figure>
+        <button class="btn btn-primary" id="continue-after-thanks">Continuar</button>
       </section>
 
       <section class="card hidden" id="ending-card">
@@ -83,21 +93,18 @@
 
       <section class="card hidden" id="video-card">
         <p class="step">Sorpresa final</p>
-        <h2 class="title">Nuestro video</h2>
-        <p class="description">
-          Este es un template.
-        </p>
+        <h2 class="title">Pinamar 2026 ❤️</h2>
 
         <div class="video-wrapper">
-          <iframe
+          <video
             id="memory-video"
             title="Video especial"
-            src="https://www.youtube-nocookie.com/embed/JGwWNGJdvx8"
+            src="assets/videoFran.mp4"
             loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+            controls
+            playsinline
+            preload="metadata"
+          ></video>
         </div>
       </section>
     </main>
